@@ -28,25 +28,29 @@ export const get_all_users = () => async (dispatch) => {
 
 export const get_user = (id) => {
   return async (dispatch, getState) => {
-    const token = getState().authRed.currUser.token;
+    try {
+      const token = getState().authRed.currUser.token;
 
-    const res = await fetch(`${youripadress}/api/v1/users/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        authorization: token,
-      },
-    });
-    const serverData = await res.json();
-    //console.log('serverData in get_user', serverData);
-    if (serverData.status === 'success') {
-      dispatch({
-        type: actionTypes.GET_USER,
-        payload: {
-          user: serverData.data.user,
+      const res = await fetch(`${youripadress}/api/v1/users/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          authorization: token,
         },
       });
+      const serverData = await res.json();
+      //console.log('serverData in get_user', serverData);
+      if (serverData.status === 'success') {
+        dispatch({
+          type: actionTypes.GET_USER,
+          payload: {
+            user: serverData.data.user,
+          },
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 };

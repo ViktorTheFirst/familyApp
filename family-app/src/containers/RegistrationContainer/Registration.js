@@ -34,6 +34,7 @@ class Registration extends Component {
   };
 
   componentDidMount() {
+    console.log('[Registration] - componentDidMount');
     this.setState({ ...this.state, users: this.props.usrs });
   }
 

@@ -99,9 +99,7 @@ router.post(
 //post new memory with route: '/api/v1/memories/'
 router.post('/', auth, async (req, res) => {
   try {
-    console.log('req.file', req.file);
     const newMemory = await Memory.create(req.body);
-    //console.log('req.body:', req.body);
     res.status(201).json({
       status: 'success',
       data: {

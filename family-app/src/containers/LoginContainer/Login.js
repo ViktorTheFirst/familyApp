@@ -15,7 +15,7 @@ class Login extends Component {
   }
 
   subbmitHandler = async () => {
-    console.log('Login pressed');
+    //console.log('Login pressed');
     const loginStatus = await this.props.onLogin(
       this.state.email,
       this.state.password
@@ -25,6 +25,10 @@ class Login extends Component {
       this.props.history.push('/');
     }
   };
+
+  componentDidMount() {
+    console.log('[Login] - componentDidMount');
+  }
 
   render() {
     return (

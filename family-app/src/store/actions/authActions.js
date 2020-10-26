@@ -92,7 +92,7 @@ export const login = (data) => {
         localStorage.setItem('token', serverData.token);
         localStorage.setItem('email', serverData.data.user.email);
         localStorage.setItem('_id', serverData.data.user._id);
-        console.log('BEFORE DISPATCH IN login');
+        //console.log('BEFORE DISPATCH IN login');
         dispatch(authSuccess(serverData));
       }
       return serverData.status;
@@ -120,7 +120,7 @@ export const persistAuthCheck = () => {
     };
     //TODO: this func rerenderss
     if (token) {
-      console.log('BEFORE DISPATCH IN persistAuthCheck');
+      //console.log('BEFORE DISPATCH IN persistAuthCheck');
       dispatch(authSuccess(authData));
     }
   };

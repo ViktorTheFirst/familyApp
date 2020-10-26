@@ -26,8 +26,9 @@ const userReducer = (state = initialState, action) => {
           profileImage: action.payload.user.profileImage,
         },
       };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default userReducer;

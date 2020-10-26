@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import './LiveFeed.css';
 
-const LiveFeed = (props) => {
-  return <div>LIVE FEED SCREEN</div>;
-};
+class LiveFeed extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className='live-container'>
+        <div className='live-feed'>VIDEO FEED HERE</div>
+        <div className='control-panel'>
+          <div className='audio'>Audio</div>
+          <div className='screenshot'>ScreenShot</div>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default LiveFeed;

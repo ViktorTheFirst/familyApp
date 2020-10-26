@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 class Map extends Component {
   constructor(props) {
     super(props);
-    console.log('constructor EXECUTES');
+    console.log('[Map] - constructor');
     this.state = {
       users: props.usrs,
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
+  /* static getDerivedStateFromProps(props, state) {
     console.log('getDerivedStateFromProps EXECUTES');
     return state;
   }
@@ -28,10 +28,10 @@ class Map extends Component {
 
   componentDidUpdate() {
     console.log('componentDidUpdate EXECUTES');
-  }
+  } */
 
   render() {
-    console.log('render EXECUTES');
+    //console.log('[Map] - render');
     return (
       <div className='map-container'>
         <div className='map-position-container'>
@@ -45,7 +45,7 @@ class Map extends Component {
         </div>
         <div className='member-list'>
           {this.state.users.map((member) => (
-            <div className='member-line'>
+            <div className='member-line' key={member._id.toString()}>
               <h2>
                 {member.name}
                 {member.sureName}

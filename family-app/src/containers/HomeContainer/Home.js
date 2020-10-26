@@ -12,6 +12,8 @@ import './Home.css';
 class Home extends Component {
   constructor(props) {
     super(props);
+
+    console.log('[Home] Constructor');
     const { token, userID } = props.currUser;
     this.authRedirect = null;
     if (!token) {
@@ -25,6 +27,8 @@ class Home extends Component {
   }
 
   render() {
+    console.log('[Home] - render');
+
     return (
       <div>
         {/* REDIRECT TO REGISTRATION IF NO TOKEN FOUND */}

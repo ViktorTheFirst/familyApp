@@ -8,10 +8,12 @@ import './index.css';
 import App from './App';
 import authReducer from './store/reducers/authReducer';
 import userReducer from './store/reducers/userReducer';
+import memoryReducer from './store/reducers/memoryReducer';
 
 const rootReducer = combineReducers({
   authRed: authReducer,
   userRed: userReducer,
+  memoriesRed: memoryReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
