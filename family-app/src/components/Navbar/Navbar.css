@@ -1,0 +1,70 @@
+nav {
+  display: flex;
+
+  min-height: 10vh;
+  align-items: center;
+  font-family: inter;
+  background-color: #ff5f6d;
+}
+
+nav .nav-links {
+  flex: 4;
+  display: flex;
+  justify-content: flex-start;
+  margin: 20px 20px 20px 20px;
+
+  width: 30%;
+}
+
+.login-section {
+  flex: 2;
+  justify-content: flex-end;
+  display: flex;
+  width: 25%;
+  margin-right: 20px;
+  color: white;
+}
+
+nav .nav-links a {
+  margin: 20px;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  /* background-color: rgb(41, 107, 41); */
+  cursor: pointer;
+}
+
+nav .nav-links a:hover {
+  border-bottom: 2px solid #fff;
+}
+
+nav .burger {
+  display: none;
+}
+
+@media all and (max-width: 768px) {
+  /*---------- when screen is in 768 width (tablet) --------------*/
+  nav .burger {
+    display: block;
+  }
+  nav .nav-links {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #ff5f6d;
+    padding: 40px;
+    width: 50%;
+    transform: translateX(-500px);
+    transition: 0.5s ease-in-out;
+  }
+
+  nav .nav-links li {
+    padding: 20px;
+    border-bottom: 1px solid white;
+  }
+  nav .nav-links li:last-of-type {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,76 @@
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 90vh;
+  box-sizing: border-box;
+  align-items: center;
+
+  padding: 20px;
+}
+
+.image-and-actions-container {
+  display: flex;
+  flex: 1;
+  height: 80vh;
+  flex-direction: column;
+  background-color: rgb(109, 86, 139);
+}
+
+.image-and-actions-container .image-container {
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-and-actions-container .image-container img {
+  width: 90%;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.image-and-actions-container .actions-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions-container button {
+  margin: 5px;
+  min-height: 5vh;
+  width: 50%;
+}
+
+.profile-container .info-container {
+  background-color: rgb(128, 202, 121);
+  display: flex;
+  flex: 2;
+  height: 80vh;
+  flex-direction: row;
+}
+
+.profile-container .info-container .labels,
+.profile-container .info-container .info {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container .info-container .labels label {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.profile-container .info-container .info p {
+  margin-top: 22px;
+}

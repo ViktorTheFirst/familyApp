@@ -1,0 +1,33 @@
+.login-section-container {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  height: auto;
+}
+
+.login-section-container .image-container {
+  display: flex;
+  flex: 1;
+  padding: 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-section-container .image-container img {
+  max-width: 9vh;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+.login-section-container .text-container {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-section-container .text-container .text {
+  display: flex;
+}
