@@ -64,7 +64,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 //------------------------------------------------------------------------------------
-//post new memory image with route: '/api/v1/memories/image_upoad'
+//post new profile image with route: '/api/v1/memories/image_upoad'
 router.post(
   '/image_upload/:id',
   upload.single('memory_image'),
@@ -114,6 +114,33 @@ router.post('/', auth, async (req, res) => {
     });
   }
 });
+
+//------------------------------------------------------------------------------------
+//post new memory image with route: '/api/v1/memories/memory_image_upload'
+router.post(
+  '/memory_image_upload',
+  upload.single('memory_image'),
+  async (req, res) => {
+    try {
+      console.log('req.file.filename: ', req.file.filename);
+      if (req.file.filename) {
+        res.status(200).json({
+          status: 'success',
+          message: 'memory image uploaded to the server',
+          data: {
+            imageName: req.file.filename,
+          },
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        status: 'fail',
+        message: 'error uploading a memory image',
+      });
+    }
+  }
+);
+
 //------------------------------------------------------------------------------------
 //updates (patch) specific memory with route '/api/v1/memories/id'
 router.patch('/:id', auth, async (req, res) => {

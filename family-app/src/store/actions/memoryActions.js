@@ -3,27 +3,37 @@ const youripadress = 'http://localhost:4000';
 
 export const image_upload = (imageData) => {
   return async (dispatch, getState) => {
-    const id = getState().authRed.currUser.userID;
-    const res = await fetch(
-      `${youripadress}/api/v1/memories/image_upload/${id}`,
-      {
-        method: 'POST',
-        body: imageData,
-      }
-    );
-    const serverData = await res.json();
-    console.log('inside memoryActions image_upload:', serverData);
-    return serverData.status;
+    try {
+      const id = getState().authRed.currUser.userID;
+      const res = await fetch(
+        `${youripadress}/api/v1/memories/image_upload/${id}`,
+        {
+          method: 'POST',
+          body: imageData,
+        }
+      );
+      const serverData = await res.json();
+      console.log('inside memoryActions image_upload:', serverData);
+      return serverData.status;
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
 //--------------------------------------------------------------------------------
 
-export const add_memory = (data) => {
-  return async (getState) => {
+export const add_memory = (incomingData) => {
+  return async (dispatch, getState) => {
     try {
       const token = getState().authRed.currUser.token;
-      const res = await fetch(`${youripadress}/api/v1/memories)`, {
+      const { name, sureName } = getState().userRed.currUser;
+      const { description, imageURL } = incomingData;
+      const owner = name.concat(' ', sureName);
+      const data = { description, imageURL, owner };
+
+      //console.log('data:  ', data);
+      const res = await fetch(`${youripadress}/api/v1/memories`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,8 +43,35 @@ export const add_memory = (data) => {
         body: JSON.stringify(data),
       });
       if (!res.ok) {
-        //TODO: continue
+        console.log('res.status :', res.status);
       }
+      const serverData = await res.json();
+      if (serverData.status === 'success') {
+        dispatch({
+          type: actionTypes.ADD_MEMORY,
+          payload: serverData,
+        });
+      }
+      //console.log('serverData: ', serverData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+//--------------------------------------------------------------------------------
+
+export const memory_image_upload = (imageData) => {
+  return async (dispatch, getState) => {
+    try {
+      const res = await fetch(
+        `${youripadress}/api/v1/memories/memory_image_upload`,
+        {
+          method: 'POST',
+          body: imageData,
+        }
+      );
+      const serverData = await res.json();
+      return serverData.status;
     } catch (err) {
       console.log(err);
     }

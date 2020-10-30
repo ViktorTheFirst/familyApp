@@ -13,6 +13,12 @@ const memoryReducer = (state = initialState, action) => {
         memCount: action.payload.results,
         memories: action.payload.data.memories,
       };
+    case actionTypes.ADD_MEMORY:
+      return {
+        ...state,
+        memCount: state.memCount + 1,
+        memories: state.memories.concat(action.payload.data.memory),
+      };
     default:
       return state;
   }

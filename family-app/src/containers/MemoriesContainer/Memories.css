@@ -16,12 +16,17 @@
 }
 
 .modal {
-  width: 50%;
-  height: 60vh;
+  width: 70%;
+  height: 80vh;
   padding: 30px;
   margin: auto;
   margin-top: 90px;
   background-color: darkseagreen;
   display: flex;
   flex-direction: column;
+}
+
+.modal img {
+  width: 400px;
+  height: 400px;
 }

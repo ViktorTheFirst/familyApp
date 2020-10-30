@@ -11,3 +11,5 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const GET_ALL_MEMORIES = 'GET_ALL_MEMORIES';
+export const ADD_MEMORY = 'ADD_MEMORY';
+export const ADD_MEMORY_IMAGE = 'ADD_MEMORY_IMAGE';

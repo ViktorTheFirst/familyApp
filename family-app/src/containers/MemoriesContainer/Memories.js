@@ -12,7 +12,9 @@ class Memories extends Component {
     super(props);
     this.state = {
       showModal: false,
-      fileInput: null,
+      image: null,
+      previewURL: null,
+      description: '',
     };
     //console.log('[Memories] - Constructor');
     props.onGetAllMemories();
@@ -25,8 +27,29 @@ class Memories extends Component {
   closeModalHandler() {
     this.setState({ showModal: false });
   }
+  //this is a property of the class that holds a method
+  fileChoiseHandler = (event) => {
+    //console.log('--------------------', event.target.files[0]);
+    this.setState({
+      image: event.target.files[0],
+      previewURL: URL.createObjectURL(event.target.files[0]),
+    });
+  };
 
-  fileChoiseHandler() {}
+  fileUploadHandler = () => {
+    console.log('File sent to server');
+    const fd = new FormData();
+    fd.append('memory_image', this.state.image, this.state.image.name);
+    this.props.onAddMemory(this.state.description, this.state.image.name);
+    const response = this.props.onAddMemoryImage(fd);
+    if (response === 'success') {
+      this.setState({ showModal: false });
+    }
+  };
+
+  descriptionHandler = (event) => {
+    this.setState({ description: event.target.value });
+  };
 
   render() {
     //console.log('[Memories] - render');
@@ -37,14 +60,26 @@ class Memories extends Component {
           className='modal'
           onRequestClose={this.closeModalHandler.bind(this)}
         >
-          <input
-            type='file'
-            onChange={this.fileChoiseHandler.bind(this)}
-            accept='image/*'
-            style={{ display: 'none' }}
-            /* ref={(fileInput) => this.setState({ fileInput })} */
-          />
-          <button onClick={() => this.state.fileInput.click()}>ADD</button>
+          <h1>Add memory</h1>
+          {!this.state.image ? (
+            <input
+              type='file'
+              onChange={this.fileChoiseHandler}
+              accept='image/*'
+            />
+          ) : (
+            <div>
+              <img src={this.state.previewURL} />
+              <h2>Describe the memory</h2>
+              <input
+                type='textarea'
+                value={this.state.description}
+                onChange={this.descriptionHandler}
+                placeholder='Memory Description'
+              />
+              <button onClick={this.fileUploadHandler}>ADD</button>
+            </div>
+          )}
         </Modal>
         {!this.props.memories ? (
           <Spinner />
@@ -73,8 +108,10 @@ const mapStateTOProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    /* onAddMemory: async (description, imageURL, owner) =>
-      await dispatch(addMemory({})), */
+    onAddMemory: async (description, imageURL) =>
+      await dispatch(actionTypes.add_memory({ description, imageURL })),
+    onAddMemoryImage: async (fd) =>
+      await dispatch(actionTypes.memory_image_upload(fd)),
     onGetAllMemories: async () =>
       await dispatch(actionTypes.get_all_memories()),
   };
