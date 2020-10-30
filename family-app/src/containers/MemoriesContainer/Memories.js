@@ -1,17 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '..//../store/actions/memoryActions';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Spinner from '..//../components/Spinner/Spinner';
 import './Memories.css';
-import Modal from 'react-modal';
-
-Modal.setAppElement('#root'); //for modal accessability
 
 class Memories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
+      showDialog: false,
       image: null,
       previewURL: null,
       description: '',
@@ -20,12 +24,12 @@ class Memories extends Component {
     props.onGetAllMemories();
   }
 
-  openModalHandler() {
-    this.setState({ showModal: true });
+  openDialogHandler() {
+    this.setState({ showDialog: true });
   }
 
-  closeModalHandler() {
-    this.setState({ showModal: false });
+  closeDialogHandler() {
+    this.setState({ showDialog: false, image: null, previewURL: null });
   }
   //this is a property of the class that holds a method
   fileChoiseHandler = (event) => {
@@ -55,44 +59,82 @@ class Memories extends Component {
     //console.log('[Memories] - render');
     return (
       <div className='mem-container'>
-        <Modal
-          isOpen={this.state.showModal}
-          className='modal'
-          onRequestClose={this.closeModalHandler.bind(this)}
+        <Dialog
+          open={this.state.showDialog}
+          onClose={this.closeDialogHandler.bind(this)}
+          aria-labelledby='dialog-title'
+          maxWidth='xl'
         >
-          <h1>Add memory</h1>
-          {!this.state.image ? (
-            <input
-              type='file'
-              onChange={this.fileChoiseHandler}
-              accept='image/*'
-            />
-          ) : (
-            <div>
-              <img src={this.state.previewURL} />
-              <h2>Describe the memory</h2>
-              <input
-                type='textarea'
-                value={this.state.description}
-                onChange={this.descriptionHandler}
-                placeholder='Memory Description'
-              />
-              <button onClick={this.fileUploadHandler}>ADD</button>
-            </div>
-          )}
-        </Modal>
+          <DialogTitle
+            color='primary'
+            style={{ textAlign: 'center' }}
+            id='dialog-title'
+          >
+            Please add a photo to remember
+          </DialogTitle>
+          <DialogContent>
+            {!this.state.image ? (
+              <Fragment>
+                <Button onClick={() => this.fileInput.click()}>
+                  Upload Image
+                </Button>
+                <input
+                  type='file'
+                  style={{ display: 'none' }}
+                  onChange={this.fileChoiseHandler}
+                  accept='image/*'
+                  ref={(fInput) => (this.fileInput = fInput)}
+                />
+              </Fragment>
+            ) : (
+              <div>
+                <img src={this.state.previewURL} />
+                <DialogContentText>Describe the memory</DialogContentText>
+                <TextField
+                  fullWidth={true}
+                  value={this.state.description}
+                  onChange={this.descriptionHandler}
+                  placeholder='Memory Description'
+                />
+              </div>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant='contained'
+              color='primary'
+              disabled={
+                this.state.image === null || this.state.description.length < 5
+              }
+              onClick={this.fileUploadHandler}
+            >
+              ADD
+            </Button>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={this.closeDialogHandler.bind(this)}
+            >
+              CANCEL
+            </Button>
+          </DialogActions>
+        </Dialog>
         {!this.props.memories ? (
           <Spinner />
         ) : (
-          <div>
+          <Fragment>
             <p>Amount of memories: {this.props.memCount}</p>
             <span>Memory 1: {this.props.memories[0].description}</span>
             <div className='add-memory-container'>
-              <button onClick={this.openModalHandler.bind(this)}>
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={this.openDialogHandler.bind(this)}
+              >
                 Add memory
-              </button>
+              </Button>
             </div>
-          </div>
+          </Fragment>
         )}
       </div>
     );
