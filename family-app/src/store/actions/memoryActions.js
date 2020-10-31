@@ -71,6 +71,7 @@ export const memory_image_upload = (imageData) => {
         }
       );
       const serverData = await res.json();
+
       return serverData.status;
     } catch (err) {
       console.log(err);

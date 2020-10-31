@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Spinner from '..//../components/Spinner/Spinner';
+import TimeLine from '..//../components/TimeLine/TimeLine';
 import './Memories.css';
 
 class Memories extends Component {
@@ -24,30 +25,29 @@ class Memories extends Component {
     props.onGetAllMemories();
   }
 
-  openDialogHandler() {
+  openDialogHandler = () => {
     this.setState({ showDialog: true });
-  }
+  };
 
-  closeDialogHandler() {
+  closeDialogHandler = () => {
     this.setState({ showDialog: false, image: null, previewURL: null });
-  }
+  };
   //this is a property of the class that holds a method
   fileChoiseHandler = (event) => {
-    //console.log('--------------------', event.target.files[0]);
     this.setState({
       image: event.target.files[0],
       previewURL: URL.createObjectURL(event.target.files[0]),
     });
   };
 
-  fileUploadHandler = () => {
+  fileUploadHandler = async () => {
     console.log('File sent to server');
     const fd = new FormData();
     fd.append('memory_image', this.state.image, this.state.image.name);
     this.props.onAddMemory(this.state.description, this.state.image.name);
-    const response = this.props.onAddMemoryImage(fd);
+    const response = await this.props.onAddMemoryImage(fd);
     if (response === 'success') {
-      this.setState({ showModal: false });
+      this.setState({ previewURL: null, showDialog: false });
     }
   };
 
@@ -61,7 +61,7 @@ class Memories extends Component {
       <div className='mem-container'>
         <Dialog
           open={this.state.showDialog}
-          onClose={this.closeDialogHandler.bind(this)}
+          onClose={this.closeDialogHandler}
           aria-labelledby='dialog-title'
           maxWidth='xl'
         >
@@ -88,7 +88,10 @@ class Memories extends Component {
               </Fragment>
             ) : (
               <div>
-                <img src={this.state.previewURL} />
+                <img
+                  src={this.state.previewURL}
+                  style={{ height: '50vh', width: 'auto' }}
+                />
                 <DialogContentText>Describe the memory</DialogContentText>
                 <TextField
                   fullWidth={true}
@@ -113,7 +116,7 @@ class Memories extends Component {
             <Button
               variant='contained'
               color='secondary'
-              onClick={this.closeDialogHandler.bind(this)}
+              onClick={this.closeDialogHandler}
             >
               CANCEL
             </Button>
@@ -122,19 +125,13 @@ class Memories extends Component {
         {!this.props.memories ? (
           <Spinner />
         ) : (
-          <Fragment>
-            <p>Amount of memories: {this.props.memCount}</p>
-            <span>Memory 1: {this.props.memories[0].description}</span>
-            <div className='add-memory-container'>
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={this.openDialogHandler.bind(this)}
-              >
-                Add memory
-              </Button>
-            </div>
-          </Fragment>
+          <div className='timeline'>
+            <TimeLine
+              memories={this.props.memories}
+              count={this.props.memCount}
+              select={this.openDialogHandler}
+            />
+          </div>
         )}
       </div>
     );
@@ -160,3 +157,14 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateTOProps, mapDispatchToProps)(Memories);
+{
+  /* <div className='add-memory-container'>
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={this.openDialogHandler.bind(this)}
+              >
+                Add memory
+              </Button>
+            </div> */
+}

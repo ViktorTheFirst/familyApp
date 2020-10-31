@@ -7,7 +7,7 @@ const Logout = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(logout());
-  }, []);
+  });
 
   return <Redirect to='/login' />;
 };

@@ -18,16 +18,16 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    console.log('[App] Constructor');
+    //console.log('[App] Constructor');
     this.props.onPersistAuthCheck();
   }
 
   componentDidMount() {
-    console.log('[App] - componentDidMount');
+    //console.log('[App] - componentDidMount');
   }
 
   render() {
-    console.log('[App] - render');
+    //console.log('[App] - render');
     if (this.props.currUser.userID) {
       this.props.onGetUser(this.props.currUser.userID);
     }
