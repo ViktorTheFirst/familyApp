@@ -15,6 +15,7 @@ import './Memories.css';
 class Memories extends Component {
   constructor(props) {
     super(props);
+    //this.dialogRef = React.createRef();
     this.state = {
       showDialog: false,
       image: null,
@@ -60,6 +61,7 @@ class Memories extends Component {
     return (
       <div className='mem-container'>
         <Dialog
+          //ref={this.dialogRef}
           open={this.state.showDialog}
           onClose={this.closeDialogHandler}
           aria-labelledby='dialog-title'
@@ -157,14 +159,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateTOProps, mapDispatchToProps)(Memories);
-{
-  /* <div className='add-memory-container'>
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={this.openDialogHandler.bind(this)}
-              >
-                Add memory
-              </Button>
-            </div> */
-}

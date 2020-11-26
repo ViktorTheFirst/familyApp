@@ -10,16 +10,17 @@ class Profile extends Component {
     super(props);
     this.state = {
       image: null,
-      fileinput: null,
       previewURL: null,
     };
   }
 
   fileChoiseHandler = (event) => {
+    console.log('event.target.files[0]:  ', event.target.files[0])
     this.setState({
       image: event.target.files[0],
       previewURL: URL.createObjectURL(event.target.files[0]),
     });
+    
   };
 
   fileUploadHandler = async () => {
@@ -33,6 +34,7 @@ class Profile extends Component {
   };
 
   render() {
+    //console.log('this: ', this);
     return (
       <div className='profile-container'>
         <div className='image-and-actions-container'>
@@ -46,7 +48,10 @@ class Profile extends Component {
           </div>
           <div className='actions-container'>
             {!this.state.image && (
-              <button onClick={() => this.fileInput.click()}>
+              <button onClick={() => {
+                console.log('this.fileInput: ', this.fileInput)
+                this.fileInput.click()
+                }}>
                 Change image
               </button>
             )}

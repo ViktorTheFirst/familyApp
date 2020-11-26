@@ -8,13 +8,13 @@ const LoginSection = (props) => {
   return (
     <div className='login-section-container'>
       <div className='text-container'>
-        {props.isAuthorized && (
+        {props.profileImage && (
           <div>
             <p className='text'>{props.sureName}</p>
             <p className='text'>{props.name}</p>
           </div>
         )}
-        {!props.isAuthorized && <p>Login required</p>}
+        {!props.profileImage && <p>Login required</p>}
       </div>
       <div className='image-container'>
         <img

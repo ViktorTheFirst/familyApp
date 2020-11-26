@@ -4,6 +4,15 @@ import './TimeLineItem.css';
 const TimeLineItem = (props) => {
   //console.log('[TimeLineItem] - props: ', props);
 
+  const parseDate = (date) => {
+    // 2020-11-02T17:01:26.991+00:00
+    const a = date.slice(0, 10); // "2020-11-02"
+    const b = a.split('-'); // ["2020", "11", "02"]
+    const c = b.reverse(); // ["02", "11", "2020" ]
+    const d = c.join('/'); // "02/11/2020"
+    return d;
+  };
+
   return (
     <div className='item-container'>
       <div className='item-content'>
@@ -13,9 +22,8 @@ const TimeLineItem = (props) => {
         />
 
         <p className='description'>{props.memory.description}</p>
-        <p>{props.memory.date}</p>
       </div>
-      <span className='circle'></span>
+      <span className='circle'>{parseDate(props.memory.date)}</span>
     </div>
   );
 };

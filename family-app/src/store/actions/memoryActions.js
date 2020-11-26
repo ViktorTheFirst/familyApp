@@ -94,6 +94,10 @@ export const get_all_memories = () => {
         },
       });
       const serverData = await res.json();
+      /* console.log(
+        'serverData.data.memories[0].date: ',
+        typeof serverData.data.memories[0].date
+      ); */
       if (serverData.status === 'success') {
         dispatch({
           type: actionTypes.GET_ALL_MEMORIES,

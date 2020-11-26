@@ -22,18 +22,36 @@ class App extends Component {
     this.props.onPersistAuthCheck();
   }
 
-  componentDidMount() {
-    //console.log('[App] - componentDidMount');
-  }
+  /* componentDidMount() {
+    console.log('[App] - componentDidMount');
+    this.props.onGetUser(this.props.ID);
+  } */
+
+  /* shouldComponentUpdate(prevProps){
+    console.log('[App] - prevProps', prevProps);
+    console.log('[App] - props', this.props);
+    if (this.props.ID === prevProps.ID) {
+      //this.props.onGetUser(this.props.ID);
+      return false;
+    }
+    return true;
+    
+  } */
 
   render() {
-    //console.log('[App] - render');
-    if (this.props.currUser.userID) {
-      this.props.onGetUser(this.props.currUser.userID);
+    console.log('[App] - render');
+    if(this.props.ID && this.props.currUser.userID === null){
+      this.props.onGetUser(this.props.ID);
     }
     return (
       <div className='App'>
-        {this.props.currUser.userID && <Navbar />}
+        {this.props.ID && (
+          <Navbar
+            name={this.props.currUser.name}
+            sureName={this.props.currUser.sureName}
+            profileImage={this.props.currUser.profileImage}
+          />
+        )}
 
         <Switch>
           <Route path='/live-feed' component={LiveFeed} />
@@ -52,7 +70,8 @@ class App extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    currUser: state.authRed.currUser,
+    ID: state.authRed.currUser.userID,
+    currUser: state.userRed.currUser,
   };
 };
 

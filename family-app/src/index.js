@@ -9,6 +9,7 @@ import App from './App';
 import authReducer from './store/reducers/authReducer';
 import userReducer from './store/reducers/userReducer';
 import memoryReducer from './store/reducers/memoryReducer';
+import Test from '../src/containers/Test';
 
 const rootReducer = combineReducers({
   authRed: authReducer,
@@ -26,7 +27,8 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <React.StrictMode>
-        <App />
+        {/* <App /> */}
+        <Test />
       </React.StrictMode>
     </BrowserRouter>
   </Provider>,

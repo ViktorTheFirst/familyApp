@@ -41,9 +41,9 @@ nav .nav-links a:hover {
 nav .burger {
   display: none;
 }
-
+/*
 @media all and (max-width: 768px) {
-  /*---------- when screen is in 768 width (tablet) --------------*/
+  ---------- when screen is in 768 width (tablet) --------------
   nav .burger {
     display: block;
   }
@@ -67,4 +67,4 @@ nav .burger {
   nav .nav-links li:last-of-type {
     border-bottom: none;
   }
-}
+}*/

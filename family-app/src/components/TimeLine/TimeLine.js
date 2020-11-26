@@ -9,23 +9,19 @@ class TimeLine extends Component {
     this.lastMemory = {
       date: '',
       description: '',
-      imageURL: 'addImage.jpg',
+      imageURL: 'imgUpload.png' /* 'addImage.jpg' */,
     };
   }
 
-  addImage = () => {
-    this.props.select();
-  };
   render() {
     return (
       <div className='timeline-container'>
         {this.props.memories.map((mem) => (
           <TimeLineItem memory={mem} key={mem._id} />
         ))}
-        {/* TODO: explore ref warning */}
-        {/* <div onClick={this.addImage} style={{ cursor: 'pointer' }}> */}
-        <TimeLineItem memory={this.lastMemory} />
-        {/* </div> */}
+        <div onClick={this.props.select} style={{ cursor: 'pointer' }}>
+          <TimeLineItem memory={this.lastMemory} />
+        </div>
       </div>
     );
   }
