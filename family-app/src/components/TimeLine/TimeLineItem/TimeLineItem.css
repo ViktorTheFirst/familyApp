@@ -41,6 +41,7 @@
   align-items: center;
   text-align: center;
   line-height: 65px;
+  font-weight: bold;
 }
 
 .item-container::after {

@@ -7,10 +7,10 @@
 .live-feed-section {
   position: relative;
   min-height: 80vh;
-  background-color: pink;
-}
-.live-feed-background {
-  background-color: pink;
+  background: rgba(211, 211, 211, 0.2) url('../../assets/kidsBackground.jpg')
+    no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .memories-section {
@@ -36,9 +36,9 @@
   left: 0;
   right: 0;
   margin: auto;
-  border-radius: 10px;
+  cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.9);
-  background-color: white;
+  border-radius: 10px;
 }
 
 .map-section {

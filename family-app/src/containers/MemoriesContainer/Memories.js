@@ -48,7 +48,12 @@ class Memories extends Component {
     this.props.onAddMemory(this.state.description, this.state.image.name);
     const response = await this.props.onAddMemoryImage(fd);
     if (response === 'success') {
-      this.setState({ previewURL: null, showDialog: false });
+      this.setState({
+        previewURL: null,
+        showDialog: false,
+        description: '',
+        image: null,
+      });
     }
   };
 

@@ -9,7 +9,7 @@ class TimeLine extends Component {
     this.lastMemory = {
       date: '',
       description: '',
-      imageURL: 'imgUpload.png' /* 'addImage.jpg' */,
+      imageURL: 'imgUpload.png',
     };
   }
 

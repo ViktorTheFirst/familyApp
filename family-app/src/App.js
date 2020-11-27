@@ -40,17 +40,14 @@ class App extends Component {
 
   render() {
     console.log('[App] - render');
-    if(this.props.ID && this.props.currUser.userID === null){
+    const { userID, name, sureName, profileImage } = this.props.currUser;
+    if (this.props.ID && userID === null) {
       this.props.onGetUser(this.props.ID);
     }
     return (
       <div className='App'>
         {this.props.ID && (
-          <Navbar
-            name={this.props.currUser.name}
-            sureName={this.props.currUser.sureName}
-            profileImage={this.props.currUser.profileImage}
-          />
+          <Navbar name={name} sureName={sureName} profileImage={profileImage} />
         )}
 
         <Switch>
