@@ -64,7 +64,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 //------------------------------------------------------------------------------------
-//post new profile image with route: '/api/v1/memories/image_upoad'
+//post new profile image with route: '/api/v1/memories/image_upload'
 router.post(
   '/image_upload/:id',
   upload.single('memory_image'),
@@ -90,6 +90,7 @@ router.post(
       res.status(500).json({
         status: 'fail',
         message: 'error uploading an image',
+        error: err,
       });
     }
   }
@@ -122,7 +123,6 @@ router.post(
   upload.single('memory_image'),
   async (req, res) => {
     try {
-      console.log('req.file.filename: ', req.file.filename);
       if (req.file.filename) {
         res.status(200).json({
           status: 'success',

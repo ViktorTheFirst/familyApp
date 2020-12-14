@@ -4,6 +4,7 @@ const youripadress = 'http://localhost:4000';
 export const image_upload = (imageData) => {
   return async (dispatch, getState) => {
     try {
+      console.log('IMAGE DATA: ', imageData);
       const id = getState().authRed.currUser.userID;
       const res = await fetch(
         `${youripadress}/api/v1/memories/image_upload/${id}`,
@@ -13,10 +14,16 @@ export const image_upload = (imageData) => {
         }
       );
       const serverData = await res.json();
-      console.log('inside memoryActions image_upload:', serverData);
+
       return serverData.status;
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: actionTypes.SHOW_NOTIFICATION,
+        payload: {
+          notification: 'Error while uploading image to server',
+          type: 'error',
+        },
+      });
     }
   };
 };
@@ -32,7 +39,6 @@ export const add_memory = (incomingData) => {
       const owner = name.concat(' ', sureName);
       const data = { description, imageURL, owner };
 
-      //console.log('data:  ', data);
       const res = await fetch(`${youripadress}/api/v1/memories`, {
         method: 'POST',
         headers: {
@@ -42,9 +48,7 @@ export const add_memory = (incomingData) => {
         },
         body: JSON.stringify(data),
       });
-      if (!res.ok) {
-        console.log('res.status :', res.status);
-      }
+
       const serverData = await res.json();
       if (serverData.status === 'success') {
         dispatch({
@@ -52,12 +56,54 @@ export const add_memory = (incomingData) => {
           payload: serverData,
         });
       }
-      //console.log('serverData: ', serverData);
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: actionTypes.SHOW_NOTIFICATION,
+        payload: {
+          notification: 'Error while uploading memory to server',
+          type: 'error',
+        },
+      });
     }
   };
 };
+//--------------------------------------------------------------------------------
+export const delete_memory = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = getState().authRed.currUser.token;
+      const res = await fetch(`${youripadress}/api/v1/memories/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: token,
+        },
+      });
+      const serverData = await res.json();
+      //memory deletion success
+      if (serverData.status === 'success') {
+        dispatch({
+          type: actionTypes.SHOW_NOTIFICATION,
+          payload: {
+            notification: `Memory of family member ${serverData.data.deletedMemory.owner} has been deleted`,
+            type: 'success',
+          },
+        });
+      }
+      return serverData;
+    } catch (err) {
+      dispatch({
+        type: actionTypes.SHOW_NOTIFICATION,
+        payload: {
+          notification: 'Error while deleting memory',
+          type: 'error',
+        },
+      });
+    }
+  };
+};
+
 //--------------------------------------------------------------------------------
 
 export const memory_image_upload = (imageData) => {
@@ -74,7 +120,13 @@ export const memory_image_upload = (imageData) => {
 
       return serverData.status;
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: actionTypes.SHOW_NOTIFICATION,
+        payload: {
+          notification: 'Error while uploading image to server',
+          type: 'error',
+        },
+      });
     }
   };
 };
@@ -94,10 +146,7 @@ export const get_all_memories = () => {
         },
       });
       const serverData = await res.json();
-      /* console.log(
-        'serverData.data.memories[0].date: ',
-        typeof serverData.data.memories[0].date
-      ); */
+
       if (serverData.status === 'success') {
         dispatch({
           type: actionTypes.GET_ALL_MEMORIES,
@@ -108,7 +157,13 @@ export const get_all_memories = () => {
           console.log(serverData.message);
       }
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: actionTypes.SHOW_NOTIFICATION,
+        payload: {
+          notification: 'Error fetching memories from server',
+          type: 'error',
+        },
+      });
     }
   };
 };

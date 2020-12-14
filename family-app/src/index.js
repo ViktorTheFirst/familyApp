@@ -9,12 +9,14 @@ import App from './App';
 import authReducer from './store/reducers/authReducer';
 import userReducer from './store/reducers/userReducer';
 import memoryReducer from './store/reducers/memoryReducer';
+import notificationReducer from './store/reducers/notifReducer';
 import Test from '../src/containers/Test';
 
 const rootReducer = combineReducers({
   authRed: authReducer,
   userRed: userReducer,
   memoriesRed: memoryReducer,
+  notificationRed: notificationReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

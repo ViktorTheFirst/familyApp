@@ -28,7 +28,7 @@ export const register = (data) => {
   return async (dispatch) => {
     try {
       dispatch(authStart());
-      //console.log('data in actions: ', data);
+
       const res = await fetch(`${youripadress}/api/v1/auth/registration`, {
         method: 'POST',
         headers: {
@@ -39,7 +39,13 @@ export const register = (data) => {
       });
       const serverData = await res.json();
       if (serverData.status === 'fail') {
-        console.log('ERROR fatching data from server on register');
+        dispatch({
+          type: actionTypes.SHOW_NOTIFICATION,
+          payload: {
+            notification: 'Registration failed on the server',
+            type: 'error',
+          },
+        });
         dispatch(authFail(serverData));
       }
 
@@ -51,7 +57,13 @@ export const register = (data) => {
       }
       return serverData.status;
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: actionTypes.SHOW_NOTIFICATION,
+        payload: {
+          notification: 'Error while preforming user registration',
+          type: 'error',
+        },
+      });
       dispatch(authFail(err));
     }
   };
@@ -84,7 +96,13 @@ export const login = (data) => {
       const serverData = await res.json();
 
       if (serverData.status === 'fail') {
-        console.log('ERROR fatching data from server on login');
+        dispatch({
+          type: actionTypes.SHOW_NOTIFICATION,
+          payload: {
+            notification: 'Login attempt failed on the server',
+            type: 'error',
+          },
+        });
         dispatch(authFail(serverData));
       }
 
@@ -92,12 +110,18 @@ export const login = (data) => {
         localStorage.setItem('token', serverData.token);
         localStorage.setItem('email', serverData.data.user.email);
         localStorage.setItem('_id', serverData.data.user._id);
-        //console.log('BEFORE DISPATCH IN login');
+
         dispatch(authSuccess(serverData));
       }
       return serverData.status;
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: actionTypes.SHOW_NOTIFICATION,
+        payload: {
+          notification: 'Failed to log user in',
+          type: 'error',
+        },
+      });
     }
   };
 };
@@ -118,9 +142,8 @@ export const persistAuthCheck = () => {
         },
       },
     };
-    //TODO: this func rerenderss
+
     if (token) {
-      //console.log('BEFORE DISPATCH IN persistAuthCheck');
       dispatch(authSuccess(authData));
     }
   };

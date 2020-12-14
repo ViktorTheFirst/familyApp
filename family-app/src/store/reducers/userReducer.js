@@ -7,6 +7,7 @@ const initialState = {
     email: null,
     userID: null,
     profileImage: null,
+    isAdmin: null,
   },
   users: null,
 };
@@ -16,14 +17,23 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.GET_ALL_USERS:
       return { ...state, users: action.payload.users };
     case actionTypes.GET_USER:
+      const {
+        name,
+        sureName,
+        email,
+        _id,
+        profileImage,
+        isAdmin,
+      } = action.payload.user;
       return {
         ...state,
         currUser: {
-          name: action.payload.user.name,
-          sureName: action.payload.user.sureName,
-          email: action.payload.user.email,
-          userID: action.payload.user._id,
-          profileImage: action.payload.user.profileImage,
+          name,
+          sureName,
+          email,
+          userID: _id,
+          profileImage,
+          isAdmin,
         },
       };
     default:

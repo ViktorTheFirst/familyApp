@@ -4,6 +4,7 @@ import { get_all_users } from '..//../store/actions/userActions';
 import { register } from '..//../store/actions/authActions';
 import Spinner from '..//../components/Spinner/Spinner';
 import './Registration.css';
+import { showNotification } from '../../store/actions/notificationActions';
 
 class Registration extends Component {
   constructor(props) {
@@ -29,7 +30,10 @@ class Registration extends Component {
     if (regStatus === 'success') {
       this.props.history.push('/');
     } else {
-      console.log('REGISTRATION FAILED, DO VALIDATION');
+      this.props.onShowNotification(
+        'Invalid registration credentials',
+        'warning'
+      );
     }
   };
 
@@ -130,6 +134,8 @@ const mapDispatchToProps = (dispatch) => {
     onGetAllUsers: async () => await dispatch(get_all_users()),
     onRegister: async (name, sureName, email, password) =>
       await dispatch(register({ name, sureName, email, password })),
+    onShowNotification: (notification, type) =>
+      dispatch(showNotification(notification, type)),
   };
 };
 

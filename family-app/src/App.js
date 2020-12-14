@@ -10,6 +10,7 @@ import Profile from './containers/ProfileContainer/Profile';
 import Registration from './containers/RegistrationContainer/Registration';
 import Login from './containers/LoginContainer/Login';
 import Logout from './containers/LogoutContainer/Logout';
+import Notification from '../src/components/Notification/Notification';
 import { persistAuthCheck } from './store/actions/authActions';
 import { connect } from 'react-redux';
 import { get_user } from './store/actions/userActions';
@@ -61,6 +62,7 @@ class App extends Component {
           <Route path='/' exact component={Home} />
           <Route render={() => <h1>404: page not found</h1>} />
         </Switch>
+        <Notification />
       </div>
     );
   }

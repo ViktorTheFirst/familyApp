@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { get_user } from '../../store/actions/userActions';
-import avatarPlaceholder from '..//../assets/avatar-placeholder.png';
 import { image_upload } from '..//../store/actions/memoryActions';
+import Button from '@material-ui/core/Button';
 import './Profile.css';
 
 class Profile extends Component {
@@ -15,12 +15,14 @@ class Profile extends Component {
   }
 
   fileChoiseHandler = (event) => {
-    console.log('event.target.files[0]:  ', event.target.files[0])
-    this.setState({
-      image: event.target.files[0],
-      previewURL: URL.createObjectURL(event.target.files[0]),
-    });
-    
+    this.cancelUpoadhandler();
+    console.log('fileChoiseHandler', event.target.files[0]);
+    if (event.target.files[0]) {
+      this.setState({
+        image: event.target.files[0],
+        previewURL: URL.createObjectURL(event.target.files[0]),
+      });
+    }
   };
 
   fileUploadHandler = async () => {
@@ -33,8 +35,11 @@ class Profile extends Component {
     this.setState({ image: null, previewURL: null });
   };
 
+  cancelUpoadhandler = () => {
+    this.setState({ image: null, previewURL: null });
+  };
+
   render() {
-    //console.log('this: ', this);
     return (
       <div className='profile-container'>
         <div className='image-and-actions-container'>
@@ -48,19 +53,40 @@ class Profile extends Component {
           </div>
           <div className='actions-container'>
             {!this.state.image && (
-              <button onClick={() => {
-                console.log('this.fileInput: ', this.fileInput)
-                this.fileInput.click()
-                }}>
+              <Button
+                color='primary'
+                variant='contained'
+                onClick={() => {
+                  this.fileInput.click();
+                }}
+              >
                 Change image
-              </button>
+              </Button>
             )}
             {this.state.image && (
-              <button onClick={this.fileUploadHandler}>UPLOAD</button>
+              <Fragment>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={this.fileUploadHandler}
+                >
+                  UPLOAD
+                </Button>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={this.cancelUpoadhandler}
+                >
+                  CANCEL
+                </Button>
+              </Fragment>
             )}
-            <button>Edit profile</button>
+            <Button variant='contained' color='primary'>
+              Edit profile
+            </Button>
             <input
               type='file'
+              //onClick={this.fileChoiseHandler}
               onChange={this.fileChoiseHandler}
               accept='image/*'
               style={{ display: 'none' }}

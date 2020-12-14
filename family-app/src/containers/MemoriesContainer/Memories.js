@@ -10,7 +10,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Spinner from '..//../components/Spinner/Spinner';
 import TimeLine from '..//../components/TimeLine/TimeLine';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import './Memories.css';
+import { showNotification } from '../../store/actions/notificationActions';
 
 class Memories extends Component {
   constructor(props) {
@@ -42,12 +44,15 @@ class Memories extends Component {
   };
 
   fileUploadHandler = async () => {
-    console.log('File sent to server');
     const fd = new FormData();
     fd.append('memory_image', this.state.image, this.state.image.name);
     this.props.onAddMemory(this.state.description, this.state.image.name);
     const response = await this.props.onAddMemoryImage(fd);
     if (response === 'success') {
+      this.props.onShowNotification(
+        'Your memory was uploaded successfuly',
+        'success'
+      );
       this.setState({
         previewURL: null,
         showDialog: false,
@@ -59,6 +64,15 @@ class Memories extends Component {
 
   descriptionHandler = (event) => {
     this.setState({ description: event.target.value });
+  };
+
+  deleteMemory = (id) => {
+    console.log('deleteMemory in Memories activated', id);
+    const result = this.props.onDeleteMemory(id);
+    if (result) {
+      //update the list of memories after deletion
+      this.props.onGetAllMemories();
+    }
   };
 
   render() {
@@ -82,7 +96,12 @@ class Memories extends Component {
           <DialogContent>
             {!this.state.image ? (
               <Fragment>
-                <Button onClick={() => this.fileInput.click()}>
+                <Button
+                  color='primary'
+                  variant='contained'
+                  startIcon={<CloudUploadIcon />}
+                  onClick={() => this.fileInput.click()}
+                >
                   Upload Image
                 </Button>
                 <input
@@ -94,7 +113,7 @@ class Memories extends Component {
                 />
               </Fragment>
             ) : (
-              <div>
+              <Fragment>
                 <img
                   src={this.state.previewURL}
                   style={{ height: '50vh', width: 'auto' }}
@@ -106,7 +125,7 @@ class Memories extends Component {
                   onChange={this.descriptionHandler}
                   placeholder='Memory Description'
                 />
-              </div>
+              </Fragment>
             )}
           </DialogContent>
           <DialogActions>
@@ -137,6 +156,7 @@ class Memories extends Component {
               memories={this.props.memories}
               count={this.props.memCount}
               select={this.openDialogHandler}
+              delete={this.deleteMemory} //activated by child
             />
           </div>
         )}
@@ -145,7 +165,7 @@ class Memories extends Component {
   }
 }
 
-const mapStateTOProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     memories: state.memoriesRed.memories,
     memCount: state.memoriesRed.memCount,
@@ -160,7 +180,10 @@ const mapDispatchToProps = (dispatch) => {
       await dispatch(actionTypes.memory_image_upload(fd)),
     onGetAllMemories: async () =>
       await dispatch(actionTypes.get_all_memories()),
+    onShowNotification: (notification, type) =>
+      dispatch(showNotification(notification, type)),
+    onDeleteMemory: async (id) => await dispatch(actionTypes.delete_memory(id)),
   };
 };
 
-export default connect(mapStateTOProps, mapDispatchToProps)(Memories);
+export default connect(mapStateToProps, mapDispatchToProps)(Memories);

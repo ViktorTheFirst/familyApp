@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import TimeLineItem from './TimeLineItem/TimeLineItem';
 import './TimeLine.css';
 
@@ -17,14 +18,27 @@ class TimeLine extends Component {
     return (
       <div className='timeline-container'>
         {this.props.memories.map((mem) => (
-          <TimeLineItem memory={mem} key={mem._id} />
+          <TimeLineItem
+            memory={mem}
+            key={mem._id}
+            admin={this.props.isAdmin}
+            delete={this.props.delete} //activated by child
+          />
         ))}
-        <div onClick={this.props.select} style={{ cursor: 'pointer' }}>
-          <TimeLineItem memory={this.lastMemory} />
+        <div onClick={this.props.select}>
+          <TimeLineItem
+            memory={this.lastMemory}
+            admin={this.props.isAdmin}
+            dummy={true}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default TimeLine;
+const mapStateToProps = (state) => {
+  return { isAdmin: state.userRed.currUser.isAdmin };
+};
+
+export default connect(mapStateToProps, null)(TimeLine);
