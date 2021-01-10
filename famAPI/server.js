@@ -15,10 +15,10 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then(console.log('---DATABASE CONNECTED!---'));
+  .then(console.log('DATABASE CONNECTED!'));
 const port = process.env.PORT || 4000;
 
 //callback func is called as soon as server starts listening
 app.listen(port, () => {
-  console.log(`---Server running on port:  ${port}...---`);
+  console.log(`Server running on port:  ${port}...`);
 });
