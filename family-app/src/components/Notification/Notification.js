@@ -17,7 +17,6 @@ class Notification extends React.Component {
 
   render() {
     const arrLen = this.props.notifications.length;
-    console.log('this.props.notifications: ', this.props.notifications);
     return (
       <div>
         {!arrLen ? null : (

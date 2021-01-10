@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import homePhoto from '..//../assets/main_edited.jpg';
+import BG1 from '..//../assets/BG1_resized.jpg';
+import BG2 from '..//../assets/BG2_resized.jpg';
+import BG3 from '..//../assets/BG3_resized.jpg';
+import BG4 from '..//../assets/BG4_resized.jpg';
 import cribImage from '..//../assets/crib.png';
 import dialogImage from '..//../assets/dialogBubbles.jpg';
 import globeImage from '..//../assets/globe2.png';
 import { get_all_users } from '..//../store/actions/userActions';
+import Slider from '../../components/Slider/Slider';
+import Slide from '../../components/Slider/Slide';
 
 import './Home.css';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-
+    //TODO: getAllBGImages();
     console.log('[Home] Constructor');
     const { token, userID } = props.currUser;
     this.authRedirect = null;
@@ -20,6 +25,13 @@ class Home extends Component {
       this.authRedirect = <Redirect to='/registration' />;
     }
   }
+
+  sliderArr = [
+    <Slide imageURL={BG1} />,
+    <Slide imageURL={BG2} />,
+    <Slide imageURL={BG3} />,
+    <Slide imageURL={BG4} />,
+  ];
 
   componentDidMount() {
     console.log('[Home] - componentDidMount');
@@ -35,7 +47,7 @@ class Home extends Component {
         {this.authRedirect}
         <section className='main-section'>
           <div className='main-background'>
-            {/* <img className='main-image' src={homePhoto} alt='home photo' /> */}
+            <Slider sliderArr={this.sliderArr} autoPlay={8} />
           </div>
         </section>
         {/* ---------------------------------------------------------------------------------------- */}

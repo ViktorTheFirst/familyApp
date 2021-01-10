@@ -47,13 +47,15 @@
   background-color: rgb(40, 124, 14);
 }
 .main-background {
-  background: rgba(211, 211, 211, 0.2) url('../../assets/main_edited.jpg')
+  /* background: rgba(211, 211, 211, 0.2) url('../../assets/main_edited.jpg')
     no-repeat;
   background-position: center;
   background-size: cover;
   min-height: 90vh;
   overflow: hidden;
-  background-blend-mode: overlay;
+  background-blend-mode: overlay; */
+  min-height: 90vh;
+  background-color: thistle;
 }
 
 .live-feed-wave {

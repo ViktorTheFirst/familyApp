@@ -1,0 +1,54 @@
+.slider {
+  background: white;
+  position: relative;
+  min-height: 90vh;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  .arrow {
+    font-size: 2.5vw;
+  }
+}
+
+.slide {
+  min-width: 100%;
+  min-height: 90vh;
+
+  transition: 0.5s;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+%sliderBtns {
+  position: absolute;
+  top: 50%;
+  background: none;
+  transform: translateY(-50%);
+  width: 10%;
+  height: 90vh;
+  border: none;
+  outline: none;
+  transition: 0.5s;
+  &:hover {
+    background: rgba(0, 0, 0, 0.315);
+    cursor: pointer;
+    .arrow {
+      color: white;
+    }
+  }
+}
+
+#goLeft {
+  left: 0;
+  @extend %sliderBtns;
+}
+
+#goRight {
+  right: 0;
+  @extend %sliderBtns;
+}
