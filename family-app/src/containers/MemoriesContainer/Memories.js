@@ -11,8 +11,9 @@ import Button from '@material-ui/core/Button';
 import Spinner from '..//../components/Spinner/Spinner';
 import TimeLine from '..//../components/TimeLine/TimeLine';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import './Memories.css';
 import { showNotification } from '../../store/actions/notificationActions';
+
+import './Memories.css';
 
 class Memories extends Component {
   constructor(props) {

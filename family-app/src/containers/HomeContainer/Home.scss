@@ -1,0 +1,47 @@
+.live-feed-section {
+  position: relative;
+  min-height: 80vh;
+  background: rgba(211, 211, 211, 0.2) url('../../assets/kidsBackground.jpg')
+    no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.memories-section {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+}
+
+%image-shared {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  cursor: pointer;
+}
+
+.section-image {
+  @extend %image-shared;
+  width: 30%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.9);
+}
+
+.crib-image {
+  @extend %image-shared;
+  border-radius: 50%;
+  width: 30%;
+  height: 75%;
+  box-shadow: 0 3px 6px rgba(139, 139, 90, 0.9);
+}
+
+.map-section {
+  position: relative;
+  min-height: 80vh;
+  background-color: rgb(40, 124, 14);
+}

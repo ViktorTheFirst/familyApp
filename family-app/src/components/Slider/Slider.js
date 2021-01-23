@@ -4,9 +4,6 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import './Slider.scss';
 
 const Slider = ({ sliderArr, autoPlay }) => {
-  console.log(
-    `Array of size ${sliderArr.length} with BG images loaded: ${sliderArr}`
-  );
   const autoPlayRef = useRef();
   useEffect(() => {
     autoPlayRef.current = goRight;
@@ -20,6 +17,7 @@ const Slider = ({ sliderArr, autoPlay }) => {
   }, []);
 
   const [x, setX] = useState(0);
+
   const goLeft = () => {
     x === 0 ? setX(-100 * (sliderArr.length - 1)) : setX(x + 100);
   };

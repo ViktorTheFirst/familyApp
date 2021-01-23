@@ -12,7 +12,7 @@ import { get_all_users } from '..//../store/actions/userActions';
 import Slider from '../../components/Slider/Slider';
 import Slide from '../../components/Slider/Slide';
 
-import './Home.css';
+import './Home.scss';
 
 class Home extends Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class Home extends Component {
     if (!token) {
       this.authRedirect = <Redirect to='/registration' />;
     }
+    this.memoriesImageRef = React.createRef();
   }
 
   sliderArr = [
@@ -36,6 +37,14 @@ class Home extends Component {
   componentDidMount() {
     console.log('[Home] - componentDidMount');
     this.props.onGetAllUsers();
+    /* TODO: build Particles component and import to Home.js
+    youtube tutorial:  https://www.youtube.com/watch?v=nrJh8-Ixnu8&t=339s&ab_channel=Frankslaboratory
+    
+    this.ctx = this.memoriesImageRef.current.getContext('2d');
+    
+    class Particle{
+      constructor()
+    } */
   }
 
   render() {
@@ -46,9 +55,7 @@ class Home extends Component {
         {/* REDIRECT TO REGISTRATION IF NO TOKEN FOUND */}
         {this.authRedirect}
         <section className='main-section'>
-          <div className='main-background'>
-            <Slider sliderArr={this.sliderArr} autoPlay={8} />
-          </div>
+          <Slider sliderArr={this.sliderArr} autoPlay={8} />
         </section>
         {/* ---------------------------------------------------------------------------------------- */}
         <section className='live-feed-section'>
@@ -62,20 +69,20 @@ class Home extends Component {
         </section>
         {/* ---------------------------------------------------------------- */}
         <section className='memories-section'>
-          <div className='memories-backgorund'>
-            <img
-              className='crib-image'
-              src={dialogImage}
-              onClick={() => {
-                this.props.history.push('/memories');
-              }}
-            />
-          </div>
+          {/* TODO: replace img with Particles component */}
+          <img
+            className='section-image'
+            src={dialogImage}
+            onClick={() => {
+              this.props.history.push('/memories');
+            }}
+          />
+          <canvas ref={this.memoriesImageRef}></canvas>
         </section>
         {/* ---------------------------------------------------------------- */}
         <section className='map-section'>
           <img
-            className='crib-image'
+            className='section-image'
             src={globeImage}
             onClick={() => {
               this.props.history.push('/map');

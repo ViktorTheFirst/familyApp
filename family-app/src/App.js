@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import { Route, Switch } from 'react-router-dom';
 import Home from './containers/HomeContainer/Home';
@@ -14,6 +13,8 @@ import Notification from '../src/components/Notification/Notification';
 import { persistAuthCheck } from './store/actions/authActions';
 import { connect } from 'react-redux';
 import { get_user } from './store/actions/userActions';
+
+import './App.css';
 
 class App extends Component {
   constructor(props) {

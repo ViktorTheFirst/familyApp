@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import './index.css';
+//import './index.css';
 import App from './App';
 import authReducer from './store/reducers/authReducer';
 import userReducer from './store/reducers/userReducer';
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   authRed: authReducer,
   userRed: userReducer,
   memoriesRed: memoryReducer,
-  notificationRed: notificationReducer
+  notificationRed: notificationReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

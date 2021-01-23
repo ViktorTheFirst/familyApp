@@ -7,7 +7,8 @@ import './Login.css';
 class Login extends Component {
   constructor(props) {
     super(props);
-
+    //can be referenced in the component
+    this.inputRef = React.createRef();
     this.state = {
       email: '',
       password: '',
@@ -28,6 +29,8 @@ class Login extends Component {
 
   componentDidMount() {
     console.log('[Login] - componentDidMount');
+    //focus the input element pointed by the inputRef
+    this.inputRef.current.focus();
   }
 
   render() {
@@ -41,6 +44,7 @@ class Login extends Component {
             <input
               type='email'
               placeholder='Email'
+              ref={this.inputRef} //attach inputRef to this DOM element
               value={this.state.email}
               onChange={(event) => {
                 this.setState({
