@@ -28,9 +28,9 @@ class Home extends Component {
   }
 
   sliderArr = [
-    <Slide imageURL={BG1} />,
-    <Slide imageURL={BG2} />,
     <Slide imageURL={BG3} />,
+    <Slide imageURL={BG2} />,
+    <Slide imageURL={BG1} />,
     <Slide imageURL={BG4} />,
   ];
 

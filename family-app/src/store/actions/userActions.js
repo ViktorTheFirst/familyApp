@@ -1,5 +1,5 @@
 import * as actionTypes from './const';
-const youripadress = 'http://localhost:4000';
+const youripadress = process.env.REACT_APP_API;
 
 //---------------------------------------------------------------------
 export const get_all_users = () => async (dispatch) => {

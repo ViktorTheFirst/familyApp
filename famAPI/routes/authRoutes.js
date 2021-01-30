@@ -10,7 +10,6 @@ const User = require('../models/userModel');
 //REGISTER user with route: '/api/v1/auth/registration'
 router.post('/registration', async (req, res) => {
   const { name, sureName, email, password } = req.body;
-  //console.log('data in authRoutes:', req.body);
   try {
     //Check if the user already exist
     const user = await User.findOne({ email });
@@ -21,6 +20,7 @@ router.post('/registration', async (req, res) => {
       });
     }
 
+    //create new user
     const newUser = await User.create({
       name,
       sureName,
@@ -28,21 +28,19 @@ router.post('/registration', async (req, res) => {
       password,
     });
 
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
-
     res.status(201).json({
       status: 'success',
-      token,
       data: {
         user: newUser,
       },
     });
   } catch (err) {
     res.status(500).json({
+      //TODO: figure out what type of error coming from user creation
+      //can be minLength of pass or no name..
+      //pass it to front end
       status: 'fail',
-      message: 'registration failed',
+      message: 'Registration failed on server',
       error: err,
     });
   }
@@ -77,7 +75,7 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     res.status(500).json({
       status: 'fail',
-      message: 'login failed',
+      message: 'Login failed on server',
       error: err,
     });
   }

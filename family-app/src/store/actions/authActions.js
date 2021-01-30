@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/const';
-const youripadress = 'http://localhost:4000';
+const youripadress = process.env.REACT_APP_API;
 
 //------------------------------------------------------------------------------------
 
@@ -38,24 +38,23 @@ export const register = (data) => {
         body: JSON.stringify(data),
       });
       const serverData = await res.json();
+      console.log('in AUTH: ', serverData);
       if (serverData.status === 'fail') {
         dispatch({
           type: actionTypes.SHOW_NOTIFICATION,
           payload: {
-            notification: 'Registration failed on the server',
+            /* error can come from validation or from existing user */
+            notification: serverData.error
+              ? serverData.error._message
+              : serverData.message,
             type: 'error',
           },
         });
         dispatch(authFail(serverData));
       }
 
-      if (serverData.status === 'success') {
-        localStorage.setItem('token', serverData.token);
-        localStorage.setItem('email', serverData.data.user.email);
-        localStorage.setItem('_id', serverData.data.user._id);
-        dispatch(authSuccess(serverData));
-      }
-      return serverData.status;
+      dispatch(authSuccess());
+      return serverData;
     } catch (err) {
       dispatch({
         type: actionTypes.SHOW_NOTIFICATION,
@@ -99,7 +98,7 @@ export const login = (data) => {
         dispatch({
           type: actionTypes.SHOW_NOTIFICATION,
           payload: {
-            notification: 'Login attempt failed on the server',
+            notification: serverData.message,
             type: 'error',
           },
         });
@@ -113,7 +112,7 @@ export const login = (data) => {
 
         dispatch(authSuccess(serverData));
       }
-      return serverData.status;
+      return serverData;
     } catch (err) {
       dispatch({
         type: actionTypes.SHOW_NOTIFICATION,

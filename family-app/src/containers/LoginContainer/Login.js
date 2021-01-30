@@ -16,13 +16,9 @@ class Login extends Component {
   }
 
   subbmitHandler = async () => {
-    //console.log('Login pressed');
-    const loginStatus = await this.props.onLogin(
-      this.state.email,
-      this.state.password
-    );
+    const res = await this.props.onLogin(this.state.email, this.state.password);
 
-    if (loginStatus === 'success') {
+    if (res.status === 'success') {
       this.props.history.push('/');
     }
   };
@@ -30,10 +26,13 @@ class Login extends Component {
   componentDidMount() {
     console.log('[Login] - componentDidMount');
     //focus the input element pointed by the inputRef
-    this.inputRef.current.focus();
+    if (this.inputRef) {
+      this.inputRef.current.focus();
+    }
   }
 
   render() {
+    console.log('in Login: - this.props: ', this.props);
     return (
       <div className='login-container'>
         {this.props.isLoading ? (

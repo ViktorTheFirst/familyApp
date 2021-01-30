@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   },
   sureName: {
     type: String,
-    required: [true, 'User must have sureName'],
+    required: [true, 'User must have sure name'],
     minlength: 2,
   },
   email: {
@@ -20,12 +20,16 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'User must have password'],
-    minlength: 6,
+    minlength: [6, 'Minimum password length is 6'],
     select: false,
   },
   profileImage: {
     type: String,
     default: 'default.png',
+  },
+  isConfirmed: {
+    type: Boolean,
+    default: false,
   },
   location: {
     type: String,

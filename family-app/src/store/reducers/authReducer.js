@@ -22,19 +22,27 @@ const authReducer = (state = initialState, action) => {
         loading: true,
       };
     case actionTypes.AUTH_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        currUser: {
-          token: action.authData.token,
-          userID: action.authData.data.user._id,
-          name: action.authData.data.user.name,
-          sureName: action.authData.data.user.sureName,
-          email: action.authData.data.user.email,
-          profileImage: action.authData.data.user.profileImage,
-        },
-      };
+      //if data is passed its login else register
+      if (action.authData) {
+        return {
+          ...state,
+          loading: false,
+          error: null,
+          currUser: {
+            token: action.authData.token,
+            userID: action.authData.data.user._id,
+            name: action.authData.data.user.name,
+            sureName: action.authData.data.user.sureName,
+            email: action.authData.data.user.email,
+            profileImage: action.authData.data.user.profileImage,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          loading: false,
+        };
+      }
     case actionTypes.AUTH_FAIL:
       return {
         ...state,

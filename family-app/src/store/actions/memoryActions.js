@@ -1,5 +1,5 @@
 import * as actionTypes from './const';
-const youripadress = 'http://localhost:4000';
+const youripadress = process.env.REACT_APP_API;
 
 export const image_upload = (imageData) => {
   return async (dispatch, getState) => {

@@ -21,19 +21,17 @@ class Registration extends Component {
   }
 
   subbmitHandler = async () => {
-    const regStatus = await this.props.onRegister(
-      this.state.name,
-      this.state.sureName,
-      this.state.email,
-      this.state.password
-    );
-    if (regStatus === 'success') {
-      this.props.history.push('/');
-    } else {
+    const { name, sureName, email, password } = this.state;
+
+    const res = await this.props.onRegister(name, sureName, email, password);
+    console.log('in Registration - res: ', res);
+    //registration successful, go to HOME page
+    if (res && res.status === 'success') {
       this.props.onShowNotification(
-        'Invalid registration credentials',
-        'warning'
+        `Verification email has been sent to ${email}, please confirm registration before logging in`,
+        'success'
       );
+      this.props.history.push('/login');
     }
   };
 
@@ -107,7 +105,15 @@ class Registration extends Component {
                 });
               }}
             />
-            <button onClick={this.subbmitHandler}>Register</button>
+            <button
+              disabled={
+                this.state.password !== this.state.re_password ||
+                !this.state.password
+              }
+              onClick={this.subbmitHandler}
+            >
+              Register
+            </button>
             <p
               onClick={() => {
                 this.props.history.push('/login');
