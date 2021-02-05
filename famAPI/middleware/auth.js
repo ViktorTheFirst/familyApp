@@ -11,7 +11,7 @@ module.exports = async function (req, res, next) {
     if (!token) {
       return res.status(401).json({
         status: 'fail',
-        message: 'unauthorized, log in first',
+        message: 'Unauthorized, log in first',
       });
     }
     //check that the given token is correct
@@ -21,16 +21,17 @@ module.exports = async function (req, res, next) {
     if (!freshUser) {
       return res.status(401).json({
         status: 'fail',
-        message: 'user is no longer exists',
+        message: 'User is no longer exists',
       });
     }
-    //put all the data to teh request
+    //put all the data to the request
     req.user = freshUser;
     //access to protected route is granted
     next();
   } catch (err) {
     res.status(500).json({
       status: 'fail',
+      message: 'Error inside auth middleware',
       error: err,
     });
   }

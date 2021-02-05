@@ -32,7 +32,7 @@ class Login extends Component {
   }
 
   render() {
-    console.log('in Login: - this.props: ', this.props);
+    //console.log('in Login: - this.props: ', this.props);
     return (
       <div className='login-container'>
         {this.props.isLoading ? (

@@ -23,6 +23,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 function createData(fullName, id, email, password, courses) {
   return { fullName, id, email, password, courses };
@@ -276,9 +277,9 @@ const EnhancedTableToolbar = (props) => {
           </Tooltip>
         </>
       ) : (
-        <Tooltip title='Filter list'>
-          <IconButton aria-label='filter list'>
-            <FilterListIcon />
+        <Tooltip title='Add Student'>
+          <IconButton aria-label='add_student'>
+            <PersonAddIcon fontSize='large' color='primary' />
           </IconButton>
         </Tooltip>
       )}
