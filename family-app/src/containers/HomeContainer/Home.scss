@@ -13,6 +13,16 @@
   min-height: 80vh;
 }
 
+.memoryImageShow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.memoryImageHide {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
 %image-shared {
   display: block;
   position: absolute;

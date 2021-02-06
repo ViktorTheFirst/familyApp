@@ -11,6 +11,7 @@ import globeImage from '..//../assets/globe2.png';
 import { get_all_users } from '..//../store/actions/userActions';
 import Slider from '../../components/Slider/Slider';
 import Slide from '../../components/Slider/Slide';
+import VizSensor from 'react-visibility-sensor';
 
 import './Home.scss';
 
@@ -24,7 +25,9 @@ class Home extends Component {
     if (!token) {
       this.authRedirect = <Redirect to='/registration' />;
     }
-    this.memoriesImageRef = React.createRef();
+    this.state = {
+      memViz: false,
+    };
   }
 
   sliderArr = [
@@ -39,16 +42,20 @@ class Home extends Component {
     this.props.onGetAllUsers();
     /* TODO: build Particles component and import to Home.js
     youtube tutorial:  https://www.youtube.com/watch?v=nrJh8-Ixnu8&t=339s&ab_channel=Frankslaboratory
-    
-    this.ctx = this.memoriesImageRef.current.getContext('2d');
-    
-    class Particle{
-      constructor()
-    } */
+   */
   }
+
+  memAnimationHandler = (isVisible) => {
+    console.log('isVisible: ', isVisible);
+    this.setState({ memViz: isVisible });
+  };
 
   render() {
     console.log('[Home] - render');
+    const memCssClasses = [
+      'section-image',
+      this.state.memViz ? 'memoryImageShow' : 'memoryImageHide',
+    ];
 
     return (
       <div>
@@ -67,17 +74,21 @@ class Home extends Component {
             }}
           />
         </section>
-        {/* ---------------------------------------------------------------- */}
+        {/* --------------------------------------------------------------------------------- */}
         <section className='memories-section'>
-          {/* TODO: replace img with Particles component */}
-          <img
-            className='section-image'
-            src={dialogImage}
-            onClick={() => {
-              this.props.history.push('/memories');
-            }}
-          />
-          <canvas ref={this.memoriesImageRef}></canvas>
+          <VizSensor onChange={this.memAnimationHandler}>
+            <img
+              className={memCssClasses.join(' ')}
+              style={{
+                transition: 'all 2000ms linear',
+                transitionTimingFunction: 'cubic-bezier(1,-0.49, 0.03, 1.54)',
+              }}
+              src={dialogImage}
+              onClick={() => {
+                this.props.history.push('/memories');
+              }}
+            />
+          </VizSensor>
         </section>
         {/* ---------------------------------------------------------------- */}
         <section className='map-section'>
