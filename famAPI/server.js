@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+
 const mongoose = require('mongoose');
 
 // uses dotenv node package to set config.env as the file with environment variables

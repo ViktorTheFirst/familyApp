@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./middleware/error');
 
+app.use(cors());
 app.use(express.json()); //middleware that add the request data to the req object
 
 app.use('/api/v1/memories', require('./routes/memoryRoutes'));

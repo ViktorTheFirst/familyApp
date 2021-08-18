@@ -40,13 +40,10 @@ class Home extends Component {
   componentDidMount() {
     console.log('[Home] - componentDidMount');
     this.props.onGetAllUsers();
-    /* TODO: build Particles component and import to Home.js
-    youtube tutorial:  https://www.youtube.com/watch?v=nrJh8-Ixnu8&t=339s&ab_channel=Frankslaboratory
-   */
   }
 
+  // determines when memory section is visible
   memAnimationHandler = (isVisible) => {
-    console.log('isVisible: ', isVisible);
     this.setState({ memViz: isVisible });
   };
 
@@ -58,11 +55,12 @@ class Home extends Component {
     ];
 
     return (
-      <div>
+      <>
         {/* REDIRECT TO REGISTRATION IF NO TOKEN FOUND */}
         {this.authRedirect}
+        {/* ---------------------------------------------------------------------------------------- */}
         <section className='main-section'>
-          <Slider sliderArr={this.sliderArr} autoPlay={8} />
+          <Slider sliderArr={this.sliderArr} autoPlay={10} />
         </section>
         {/* ---------------------------------------------------------------------------------------- */}
         <section className='live-feed-section'>
@@ -73,6 +71,8 @@ class Home extends Component {
               this.props.history.push('/live-feed');
             }}
           />
+          {/* makes the glass effect */}
+          <div className='glass'></div>
         </section>
         {/* --------------------------------------------------------------------------------- */}
         <section className='memories-section'>
@@ -100,7 +100,7 @@ class Home extends Component {
             }}
           />
         </section>
-      </div>
+      </>
     );
   }
 }

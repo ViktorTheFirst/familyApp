@@ -9,7 +9,7 @@ const Slide = ({ imageURL }) => {
         width: '100%',
         height: '90vh',
         display: 'block',
-        //marginLeft: '159px',
+        backgroundAttachment: 'fixed',
       }}
     />
   );

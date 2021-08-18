@@ -1,5 +1,6 @@
 .slider {
   background: white;
+  background-attachment: fixed;
   position: relative;
   min-height: 90vh;
   width: 100%;
@@ -17,7 +18,6 @@
 .slide {
   min-width: 100%;
   min-height: 90vh;
-
   transition: 0.5s;
   overflow: hidden;
   background-repeat: no-repeat;

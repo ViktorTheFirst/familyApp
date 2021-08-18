@@ -22,7 +22,6 @@ import {
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 function createData(fullName, id, email, password, courses) {
@@ -33,11 +32,13 @@ const rows = [
   createData('Student_1', 1000, 'student_1@mail.com', 123456, [
     {
       id: '1',
+      name: 'Electronics',
       title: 'Course_1',
       desc: 'course_1 description and information',
     },
     {
       id: '2',
+      name: 'Mechanics',
       title: 'Course_2',
       desc: 'course_2 description and information',
     },
@@ -45,11 +46,13 @@ const rows = [
   createData('Student_2', 1001, 'student_2@mail.com', 123456, [
     {
       id: '1',
+      name: 'Electronics',
       title: 'Course_1',
       desc: 'course_1 description and information',
     },
     {
       id: '2',
+      name: 'Mechanics',
       title: 'Course_2',
       desc: 'course_2 description and information',
     },
@@ -57,21 +60,25 @@ const rows = [
   createData('Student_3', 1002, 'student_3@mail.com', 123456, [
     {
       id: '1',
+      name: 'Electronics',
       title: 'Course_1',
       desc: 'course_1 description and information',
     },
     {
       id: '2',
+      name: 'Mechanics',
       title: 'Course_2',
       desc: 'course_2 description and information',
     },
     {
       id: '3',
+      name: 'Air conditioning',
       title: 'Course_3',
       desc: 'course_3 description and information',
     },
     {
       id: '4',
+      name: 'Custom program',
       title: 'Course_4',
       desc: 'course_4 description and information',
     },
@@ -79,16 +86,19 @@ const rows = [
   createData('Student_4', 1003, 'student_4@mail.com', 123456, [
     {
       id: '1',
+      name: 'Electronics',
       title: 'Course_1',
       desc: 'course_1 description and information',
     },
     {
       id: '2',
+      name: 'Mechanics',
       title: 'Course_2',
       desc: 'course_2 description and information',
     },
     {
       id: '3',
+      name: 'Air conditioning',
       title: 'Course_3',
       desc: 'course_3 description and information',
     },
@@ -96,6 +106,7 @@ const rows = [
   createData('Student_5', 1004, 'student_5@mail.com', 123456, [
     {
       id: '1',
+      name: 'Electronics',
       title: 'Course_1',
       desc: 'course_1 description and information',
     },
@@ -147,7 +158,7 @@ const headCells = [
     id: 'courses',
     numeric: true,
     disablePadding: false,
-    label: 'Assigned Courses',
+    label: 'Assigned Programs',
   },
 ];
 
@@ -446,8 +457,8 @@ export default function EnhancedTable() {
                             }
                           >
                             <Chip
-                              label={course.id}
-                              onDelete={handleDeleteCourse}
+                              label={course.name}
+                              /* onDelete={handleDeleteCourse} */
                               style={{
                                 backgroundColor: colors[course.id],
                               }}

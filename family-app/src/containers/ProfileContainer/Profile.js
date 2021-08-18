@@ -86,7 +86,6 @@ class Profile extends Component {
             </Button>
             <input
               type='file'
-              //onClick={this.fileChoiseHandler}
               onChange={this.fileChoiseHandler}
               accept='image/*'
               style={{ display: 'none' }}

@@ -26,9 +26,6 @@ const Slider = ({ sliderArr, autoPlay }) => {
     x === -100 * (sliderArr.length - 1) ? setX(0) : setX(x - 100);
   };
 
-  //console.log('window.innerWidth: ', window.innerWidth);
-  //console.log('window.innerHeight: ', window.innerHeight);
-
   return (
     <div className='slider'>
       {sliderArr.map((item, index) => {
@@ -36,7 +33,10 @@ const Slider = ({ sliderArr, autoPlay }) => {
           <div
             key={index}
             className='slide'
-            style={{ transform: `translateX(${x}%)` }}
+            style={{
+              transform: `translateX(${x}%)`,
+              transition: 'all 1500ms ease-in-out',
+            }}
           >
             {item}
           </div>
